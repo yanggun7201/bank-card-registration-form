@@ -4,4 +4,4 @@ export const theme = {
     breakpoints,
 };
 
-export type Theme = typeof theme;
+export type Theme = typeof theme | any;

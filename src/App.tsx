@@ -2,6 +2,7 @@ import React from 'react';
 import { css, Global } from "@emotion/react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import RegisterCardForm from "./pages/RegisterCardForm";
+import Menu from "./components/menus/Menu";
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
             <div css={containerStyle}>
                 <Global styles={style} />
                 <BrowserRouter>
+                    <Menu />
                     <Switch>
                         <Route exact path="/register">
                             <RegisterCardForm />
