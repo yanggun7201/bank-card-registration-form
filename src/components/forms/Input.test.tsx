@@ -12,7 +12,7 @@ describe("Input component test", () => {
         type: "number"
     };
 
-    test("Should fire change event", () => {
+    it("Should fire change event", () => {
         const output = shallow(<Input {...inputProps} />);
         const inputComponent = output.find('input');
         const event = { target: { name: inputProps.name, value: "test" } };
@@ -21,7 +21,7 @@ describe("Input component test", () => {
         expect(onFieldChange).toHaveBeenCalled();
     });
 
-    test("Should set type", () => {
+    it("Should set type", () => {
         const output1 = shallow(<Input {...inputProps} />);
         expect(output1.props()).toHaveProperty('type', 'number');
 

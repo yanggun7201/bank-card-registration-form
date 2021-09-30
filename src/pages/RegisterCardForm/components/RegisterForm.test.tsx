@@ -13,7 +13,7 @@ describe("RegisterForm component test", () => {
         registerCard,
     };
 
-    test("Should display required error message", async () => {
+    it("Should display required error message", async () => {
         const registerForm = mount(<RegisterForm {...inputProps} />);
         const formComponent = registerForm.find('form');
 
@@ -30,7 +30,7 @@ describe("RegisterForm component test", () => {
 
     });
 
-    test("Should display invalid number error message", async () => {
+    it("Should display invalid number error message", async () => {
         const registerForm = mount(<RegisterForm {...inputProps} />);
 
         const invalidValue = '-000000.0001';
@@ -63,7 +63,7 @@ describe("RegisterForm component test", () => {
         });
     });
 
-    test("Should call submit function with correct values", async () => {
+    it("Should call submit function with correct values", async () => {
         const registerForm = mount(<RegisterForm {...inputProps} />);
 
         // CVC
