@@ -97,7 +97,7 @@ const RegisterForm: React.FC<Props> = ({
 export default RegisterForm;
 
 const validate = (values: FormValues): FormikErrors<FormValues> => {
-    let errors: FormikErrors<FormValues> = {};
+    const errors: FormikErrors<FormValues> = {};
 
     const creditCardNumberError = validateFormNumber(values.creditCardNumber);
     if (creditCardNumberError) {

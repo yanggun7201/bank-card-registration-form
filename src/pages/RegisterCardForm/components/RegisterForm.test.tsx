@@ -63,6 +63,33 @@ describe("RegisterForm component test", () => {
         });
     });
 
+    test("Should call submit function with correct values", async () => {
+        const registerForm = mount(<RegisterForm {...inputProps} />);
+
+        // CVC
+        const cvcInput = registerForm.find('input[name="cvc"]');
+        updateField(cvcInput, 'cvc', "12345");
+        expect(cvcInput.html()).toMatch("12345");
+
+        // Credit card number
+        const creditCardNumberInput = registerForm.find('input[name="creditCardNumber"]');
+        updateField(creditCardNumberInput, 'creditCardNumber', "09876");
+        expect(creditCardNumberInput.html()).toMatch("09876");
+
+        // Credit card number
+        const expiryInput = registerForm.find('input[name="expiry"]');
+        updateField(expiryInput, 'expiry', "2020-01-01");
+        expect(expiryInput.html()).toMatch("2020-01-01");
+
+        const formComponent = registerForm.find('form');
+        await waitFor(() => {
+            formComponent.simulate('submit');
+        });
+        registerForm.update();
+
+        expect(registerCard).toHaveBeenCalled();
+    });
+
 });
 
 const updateField = (wrapper: ReactWrapper<any>, name: string, value: any) => {
