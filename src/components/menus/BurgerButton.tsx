@@ -1,19 +1,19 @@
 import React, { memo } from 'react';
 import { css } from "@emotion/react";
-import { ReactComponent as BackSVG } from "../../images/arrow-menu-icon.svg";
+import { ReactComponent as MenuSVG } from "../../images/burger-menu-icon.svg";
 import MenuIcon from "./MenuIcon";
 
 type Props = {
     onClick?: () => void,
 }
 
-const BackMenu: React.FC<Props> = ({ onClick }) => (
+const BurgerButton: React.FC<Props> = ({ onClick }) => (
     <MenuIcon onClick={onClick}>
-        <BackSVG css={iconStyle} />
+        <MenuSVG css={iconStyle} />
     </MenuIcon>
 );
 
-export default memo(BackMenu);
+export default memo(BurgerButton);
 
 const iconStyle = css`
     width: 20px;

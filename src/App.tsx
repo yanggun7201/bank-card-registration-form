@@ -3,6 +3,8 @@ import { css, Global } from "@emotion/react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import RegisterCardForm from "./pages/RegisterCardForm";
 import Menu from "./components/menus/Menu";
+import Menu1 from "./pages/Menu1";
+import Menu2 from "./pages/Menu2";
 
 function App() {
     return (
@@ -14,6 +16,12 @@ function App() {
                     <Switch>
                         <Route exact path="/register">
                             <RegisterCardForm />
+                        </Route>
+                        <Route exact path="/menu1">
+                            <Menu1 />
+                        </Route>
+                        <Route exact path="/menu2">
+                            <Menu2 />
                         </Route>
                         <Redirect to="/register" />
                     </Switch>
