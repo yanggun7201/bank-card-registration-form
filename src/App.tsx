@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { css, Global } from "@emotion/react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <Global styles={style} />
+        Bank card form
+      </div>
   );
 }
 
 export default App;
+
+const style = css`
+    body {
+        padding: 0;
+        margin: 0;
+        color: #212121;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    *,
+    :after,
+    :before {
+        box-sizing: border-box;
+    }
+`;
