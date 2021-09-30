@@ -4,6 +4,7 @@ import { currentUserInfoQuery } from "../../store/store";
 import Title from "../../components/layouts/Title";
 import Container from "../../components/layouts/Container";
 import Content from "../../components/layouts/Content";
+import ContentTitle from "../../components/layouts/ContentTitle";
 
 const RegisterCardForm: React.FC = () => {
     const currentUser = useRecoilValue(currentUserInfoQuery);
@@ -12,7 +13,7 @@ const RegisterCardForm: React.FC = () => {
         <Container>
             <Title>Register card form</Title>
             <Content>
-                <div>Welcome {currentUser?.firstName}</div>
+                <ContentTitle>Welcome {currentUser?.firstName}</ContentTitle>
             </Content>
         </Container>
     );

@@ -7,7 +7,7 @@ type Props = {
 }
 
 const Title: React.FC<Props> = ({ children }) => (
-    <div css={titleStyle}>{children}</div>
+    <h1 css={titleStyle}>{children}</h1>
 );
 
 export default memo(Title);
@@ -20,4 +20,5 @@ const titleStyle = (theme: Theme) => css`
     align-items: center;
     font-size: 24px;
     line-height: 24px;
+    margin: 0;
 `;
