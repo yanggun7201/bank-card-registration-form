@@ -3,10 +3,11 @@ import { FormikErrors, useFormik, } from 'formik';
 import { css } from "@emotion/react";
 import LabeledInput from "../../../components/forms/LabeledInput";
 import Button from "../../../components/forms/Button";
+import { validateFormDate, validateFormNumber } from "../../../includes/validate";
 
 export type FormValues = {
-    creditCardNumber: string,
-    cvc: string,
+    creditCardNumber: number | undefined,
+    cvc: number | undefined,
     expiry: string,
 }
 
@@ -22,8 +23,8 @@ const RegisterForm: React.FC<Props> = ({
 
     const formik = useFormik({
         initialValues: {
-            creditCardNumber: '',
-            cvc: '',
+            creditCardNumber: undefined,
+            cvc: undefined,
             expiry: '',
         },
         validateOnChange: false,
@@ -84,25 +85,19 @@ export default RegisterForm;
 const validate = (values: FormValues): FormikErrors<FormValues> => {
     let errors: FormikErrors<FormValues> = {};
 
-    if (!values.creditCardNumber) {
-        errors.creditCardNumber = 'Required';
-    } else if (Number(values.creditCardNumber) < 0) {
-        errors.creditCardNumber = 'Invalid number';
+    const creditCardNumberError = validateFormNumber(values.creditCardNumber);
+    if (creditCardNumberError) {
+        errors.creditCardNumber = creditCardNumberError;
     }
 
-    if (!values.cvc) {
-        errors.cvc = 'Required';
-    } else if (Number(values.cvc) < 0) {
-        errors.creditCardNumber = 'Invalid number';
+    const cvcError = validateFormNumber(values.cvc);
+    if (cvcError) {
+        errors.cvc = cvcError;
     }
 
-    if (!values.expiry) {
-        errors.expiry = 'Required';
-    } else {
-        const date = new Date(values.expiry);
-        if (isNaN(date.getTime())) {
-            errors.expiry = 'Invalid date';
-        }
+    const expiryError = validateFormDate(values.expiry);
+    if (expiryError) {
+        errors.expiry = expiryError;
     }
 
     return errors;
