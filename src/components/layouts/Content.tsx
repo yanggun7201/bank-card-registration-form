@@ -16,7 +16,6 @@ const contentStyle = (theme: Theme) => css`
     padding: 20px;
     height: 100%;
     min-height: 400px;
-    background-color: yellow;
 
     ${theme.breakpoints.down("xxs")} {
         width: 100%;

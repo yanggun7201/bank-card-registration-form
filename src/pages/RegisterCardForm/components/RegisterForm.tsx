@@ -31,6 +31,7 @@ const RegisterForm: React.FC<Props> = ({
         validate,
         onSubmit: values => {
             registerCard(values);
+            formik.resetForm();
         },
     });
 
