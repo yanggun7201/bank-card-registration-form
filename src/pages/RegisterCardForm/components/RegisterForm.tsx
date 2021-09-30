@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent, useCallback } from 'react';
 import { FormikErrors, useFormik, } from 'formik';
 import { css } from "@emotion/react";
 import LabeledInput from "../../../components/forms/LabeledInput";
@@ -35,9 +35,17 @@ const RegisterForm: React.FC<Props> = ({
         },
     });
 
+    const onKeyDown = useCallback((e: KeyboardEvent) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.key === "Backspace" || /\d/.test(e.key)) {
+            return true;
+        }
+
+        e.preventDefault();
+    }, []);
+
     return (
         <div className={className}>
-            <form onSubmit={formik.handleSubmit} css={formStyle}>
+            <form onSubmit={formik.handleSubmit} css={formStyle} noValidate>
                 <LabeledInput
                     type="number"
                     label="Credit card number"
@@ -46,6 +54,8 @@ const RegisterForm: React.FC<Props> = ({
                     error={formik.errors.creditCardNumber}
                     value={formik.values.creditCardNumber}
                     onChange={formik.handleChange}
+                    onKeyDown={onKeyDown}
+                    required
                 />
 
                 <LabeledInput
@@ -56,6 +66,8 @@ const RegisterForm: React.FC<Props> = ({
                     error={formik.errors.cvc}
                     value={formik.values.cvc}
                     onChange={formik.handleChange}
+                    onKeyDown={onKeyDown}
+                    required
                 />
 
                 <LabeledInput
@@ -66,6 +78,7 @@ const RegisterForm: React.FC<Props> = ({
                     error={formik.errors.expiry}
                     value={formik.values.expiry}
                     onChange={formik.handleChange}
+                    required
                 />
 
                 <Button

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, memo } from 'react';
+import React, { ChangeEvent, KeyboardEvent, memo } from 'react';
 import { css } from "@emotion/react";
 
 type Props = {
@@ -6,7 +6,9 @@ type Props = {
     placeholder?: string,
     value?: string,
     onChange?: (e: string | ChangeEvent<HTMLElement>) => void,
+    onKeyDown?: (e: KeyboardEvent) => void,
     type?: string,
+    required?: boolean,
 }
 
 const Input: React.FC<Props> = ({
@@ -15,14 +17,18 @@ const Input: React.FC<Props> = ({
     value,
     onChange,
     type = "text",
+    required = false,
+    onKeyDown,
 }) => (
     <input
         css={inputStyle(type)}
         name={name}
         placeholder={placeholder || 'type'}
-        value={value || ''}
-        onChange={onChange}
+        value={value ?? ''}
         type={type}
+        required={required}
+        {...onChange && { onChange }}
+        {...onKeyDown && { onKeyDown }}
     />
 );
 
@@ -31,7 +37,7 @@ export default memo(Input);
 const inputStyle = (type: string) => css`
     padding-left: 10px;
     height: 40px;
-    
+
     ${type === "number" && css`
         /* Remove the arrows in number input */
         /* Chrome, Safari, Edge, Opera */
@@ -40,7 +46,7 @@ const inputStyle = (type: string) => css`
             -webkit-appearance: none;
             margin: 0;
         }
-    
+
         /* Firefox */
         [type=number] {
             -moz-appearance: textfield;
