@@ -1,8 +1,9 @@
 import RegisterForm from "./RegisterForm";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { waitFor } from "@testing-library/react";
 
 import FormErrorMessage from "../../../components/forms/FormErrorMessage";
+import LabeledInput from "../../../components/forms/LabeledInput";
 
 describe("RegisterForm component test", () => {
     const registerCard = jest.fn();
@@ -29,4 +30,49 @@ describe("RegisterForm component test", () => {
 
     });
 
+    test("Should display invalid number error message", async () => {
+        const registerForm = mount(<RegisterForm {...inputProps} />);
+
+        const invalidValue = '-000000.0001';
+
+        // CVC
+        const cvcInput = registerForm.find('input[name="cvc"]');
+        updateField(cvcInput, 'cvc', invalidValue);
+        expect(cvcInput.html()).toMatch(invalidValue);
+
+        // Credit card number
+        const creditCardNumberInput = registerForm.find('input[name="creditCardNumber"]');
+        updateField(creditCardNumberInput, 'creditCardNumber', invalidValue);
+        expect(creditCardNumberInput.html()).toMatch(invalidValue);
+
+        const formComponent = registerForm.find('form');
+        await waitFor(() => {
+            formComponent.simulate('submit');
+        });
+        registerForm.update();
+
+        expect(registerCard).not.toHaveBeenCalled();
+
+        await waitFor(() => {
+            registerForm.find(LabeledInput).forEach(labeledInput => {
+                if (["cvc", "creditCardNumber"].includes(labeledInput.prop('name'))) {
+                    expect(labeledInput.find(FormErrorMessage).prop('error'))
+                        .toEqual('Invalid number');
+                }
+            });
+        });
+    });
+
 });
+
+const updateField = (wrapper: ReactWrapper<any>, name: string, value: any) => {
+    wrapper.simulate('change', {
+        persist: () => {
+            // for Formik
+        },
+        target: {
+            name,
+            value,
+        },
+    })
+}
