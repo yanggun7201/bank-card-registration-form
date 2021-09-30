@@ -1,13 +1,24 @@
 import React from 'react';
 import { css, Global } from "@emotion/react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import RegisterCardForm from "./pages/RegisterCardForm";
 
 function App() {
-  return (
-      <div className="App">
-        <Global styles={style} />
-        Bank card form
-      </div>
-  );
+    return (
+        <div>
+            <div css={containerStyle}>
+                <Global styles={style} />
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path="/register">
+                            <RegisterCardForm />
+                        </Route>
+                        <Redirect to="/register" />
+                    </Switch>
+                </BrowserRouter>
+            </div>
+        </div>
+    );
 }
 
 export default App;
@@ -28,4 +39,8 @@ const style = css`
     :before {
         box-sizing: border-box;
     }
+`;
+
+const containerStyle = css`
+    position: relative;
 `;
